@@ -8,7 +8,6 @@
     <meta name="theme-color" content="#050505" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <meta name="apple-mobile-web-app-title" content="AccPrep" />
     <link rel="manifest" href="/manifest.json" />
     <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/2910/2910791.png" />
 
@@ -22,65 +21,69 @@
               obsidian: '#050505',
               charcoal: '#161618',
               card: '#1C1C1E',
-              lime: {
-                400: '#D4FF33',
-                500: '#BDFF50',
-                600: '#A3E635',
-              }
+              lime: { 400: '#D4FF33', 500: '#BDFF50', 600: '#A3E635' }
             },
             animation: {
               'slide-up': 'slideUp 0.4s cubic-bezier(0.2, 0.8, 0.2, 1)',
               'pop': 'pop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
+              'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
             },
             keyframes: {
-              slideUp: {
-                '0%': { transform: 'translateY(20px)', opacity: '0' },
-                '100%': { transform: 'translateY(0)', opacity: '1' },
-              },
-              pop: {
-                '0%': { transform: 'scale(0.9)', opacity: '0' },
-                '100%': { transform: 'scale(1)', opacity: '1' },
-              }
+              slideUp: { '0%': { transform: 'translateY(20px)', opacity: '0' }, '100%': { transform: 'translateY(0)', opacity: '1' } },
+              pop: { '0%': { transform: 'scale(0.9)', opacity: '0' }, '100%': { transform: 'scale(1)', opacity: '1' } }
             }
           }
         }
       }
     </script>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
     <style>
+      /* 1. 基础重置：去掉浏览器的白边 */
       body {
+        margin: 0;
+        padding: 0;
         font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
         background-color: #050505;
         color: #FFFFFF;
         -webkit-font-smoothing: antialiased;
-        overscroll-behavior: none;
         user-select: none;
         -webkit-user-select: none;
+        width: 100%;
+        height: 100%;
       }
+
+      /* 2. 关键美颜：强制去掉按钮的灰色边框和背景，恢复透明 */
+      button {
+        background-color: transparent;
+        border: none;
+        padding: 0;
+        margin: 0;
+        outline: none;
+        cursor: pointer;
+      }
+
+      /* 3. 修复输入框样式 */
       input, textarea {
         user-select: text;
         -webkit-user-select: text;
         appearance: none;
         outline: none;
       }
+
       .no-scrollbar::-webkit-scrollbar { display: none; }
       .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-      ::selection { background: #BDFF50; color: #000000; }
-      .glass {
-        background: rgba(28, 28, 30, 0.6);
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
-        border-top: 1px solid rgba(255, 255, 255, 0.08);
+      * { -webkit-tap-highlight-color: transparent; box-sizing: border-box; }
+      
+      #confetti-canvas {
+        position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 9999;
       }
-      * { -webkit-tap-highlight-color: transparent; }
     </style>
   </head>
   <body>
     <div id="root"></div>
+    <canvas id="confetti-canvas"></canvas>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
